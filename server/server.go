@@ -10,10 +10,10 @@ import (
     // "github.com/lib/pq"
 		"github.com/mattn/go-sqlite3"
 
-    "github.com/CatCap/sixPsyh/config"
-    "github.com/CatCap/sixPsyh/internal/handlers"
-    "github.com/CatCap/sixPsyh/internal/repository"
-    "github.com/CatCap/sixPsyh/pkg/loger"
+    "github.com/CatKap/sixPsyh/config"
+    "github.com/CatKap/sixPsyh/internal/handlers"
+    "github.com/CatKap/sixPsyh/internal/repository"
+    "github.com/CatKap/sixPsyh/pkg/loger"
 )
 
 type Server struct {

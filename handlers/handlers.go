@@ -4,7 +4,7 @@ import (
     "encoding/json"
     "net/http"
 
-    "github.com/CatCap/sixPsyh/logger"
+    "github.com/CatKap/sixPsyh/logger"
 )
 
 type Handler struct {

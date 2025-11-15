@@ -8,9 +8,9 @@ import (
     "os/signal"
     "time"
 
-    "github.com/CatCap/sixPsyh/config"
-    "github.com/CatCap/sixPsyh/internal/server"
-    "github.com/CatCap/sixPsyh/pkg/loger"
+    "github.com/CatKap/sixPsyh/config"
+    "github.com/CatKap/sixPsyh/internal/server"
+    "github.com/CatKap/sixPsyh/pkg/loger"
 )
 
 func main() {
