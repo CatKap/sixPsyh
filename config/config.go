@@ -12,6 +12,7 @@ type Config struct {
 }
 
 func LoadFromEnv() *Config {
+		
     env := getEnv("APP_ENV", "development")
     addr := getEnv("APP_ADDRESS", ":8080")
     dbfile := getEnv("SQLITE_FILE", "meetings.sqlite")
@@ -19,7 +20,7 @@ func LoadFromEnv() *Config {
     return &Config{
         Env:     env,
         Address: addr,
-        DBFile:   dburl,
+        DBFile:   dbfile,
     }
 }
 

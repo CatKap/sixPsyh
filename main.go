@@ -9,12 +9,13 @@ import (
     "time"
 
     "github.com/CatKap/sixPsyh/config"
-    "github.com/CatKap/sixPsyh/internal/server"
-    "github.com/CatKap/sixPsyh/pkg/loger"
+    "github.com/CatKap/sixPsyh/server"
+    "github.com/CatKap/sixPsyh/logger"
 )
 
 func main() {
     // load config
+		log.Info("Load config")
     cfg := config.LoadFromEnv()
 
     // init loger
@@ -24,6 +25,7 @@ func main() {
     if err != nil {
         log.Fatalf("failed to create server: %v", err)
     }
+		log.Info("Created server")
 
     // run server in goroutine
     go func() {

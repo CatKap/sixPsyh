@@ -4,6 +4,7 @@ import (
     "encoding/json"
     "net/http"
 
+    "database/sql"
     "github.com/CatKap/sixPsyh/logger"
 )
 

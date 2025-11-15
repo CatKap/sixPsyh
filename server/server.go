@@ -11,9 +11,8 @@ import (
 		"github.com/mattn/go-sqlite3"
 
     "github.com/CatKap/sixPsyh/config"
-    "github.com/CatKap/sixPsyh/internal/handlers"
-    "github.com/CatKap/sixPsyh/internal/repository"
-    "github.com/CatKap/sixPsyh/pkg/loger"
+    "github.com/CatKap/sixPsyh/handlers"
+    "github.com/CatKap/sixPsyh/logger"
 )
 
 type Server struct {
@@ -29,9 +28,9 @@ func New(cfg *config.Config, log *loger.loger) (*Server, error) {
     }
 
     // simple ping to ensure connectivity
-    if err := db.Ping(); err != nil {
-        return nil, err
-    }
+    //if err := db.Ping(); err != nil {
+    //    return nil, err
+    //}
 
     h := handlers.NewHandler(db, log)
 
