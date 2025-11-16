@@ -3,26 +3,24 @@ package server
 import (
     "context"
     "database/sql"
-    "fmt"
     "net/http"
     "time"
 
     // "github.com/lib/pq"
-		"github.com/mattn/go-sqlite3"
-
     "github.com/CatKap/sixPsyh/config"
     "github.com/CatKap/sixPsyh/handlers"
-    "github.com/CatKap/sixPsyh/logger"
+    "github.com/CatKap/sixPsyh/loger"
+		_ "github.com/mattn/go-sqlite3"
 )
 
 type Server struct {
     httpServer *http.Server
     db         *sql.DB
-    loger     *loger.loger
+    loger     *loger.Loger
 }
 
-func New(cfg *config.Config, log *loger.loger) (*Server, error) {
-    db, err := sql.Open("sqlite3", cfg.DBUrl)
+func New(cfg *config.Config, log *loger.Loger) (*Server, error) {
+    db, err := sql.Open("sqlite3", cfg.DBFile)
     if err != nil {
         return nil, err
     }
@@ -67,7 +65,7 @@ func (s *Server) Shutdown(ctx context.Context) error {
     return s.db.Close()
 }
 
-func logingMiddleware(next http.Handler, log *loger.loger) http.Handler {
+func logingMiddleware(next http.Handler, log *loger.Loger) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         start := time.Now()
         next.ServeHTTP(w, r)

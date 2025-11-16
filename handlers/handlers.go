@@ -5,15 +5,15 @@ import (
     "net/http"
 
     "database/sql"
-    "github.com/CatKap/sixPsyh/logger"
+    loger "github.com/CatKap/sixPsyh/loger"
 )
 
 type Handler struct {
     db   *sql.DB
-    log  *logger.Logger
+    log  *loger.Loger
 }
 
-func NewHandler(db *sql.DB, log *logger.Logger) *Handler {
+func NewHandler(db *sql.DB, log *loger.Loger) *Handler {
     return &Handler{db: db, log: log}
 }
 

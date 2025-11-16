@@ -3,21 +3,20 @@ package main
 
 import (
     "context"
-    "log"
     "os"
     "os/signal"
     "time"
-
+		"fmt"
+		
     "github.com/CatKap/sixPsyh/config"
     "github.com/CatKap/sixPsyh/server"
-    "github.com/CatKap/sixPsyh/logger"
+    "github.com/CatKap/sixPsyh/loger"
 )
 
 func main() {
     // load config
-		log.Info("Load config")
     cfg := config.LoadFromEnv()
-
+		fmt.Println("Starting program...")
     // init loger
     log := loger.New(cfg.Env)
 
@@ -25,7 +24,7 @@ func main() {
     if err != nil {
         log.Fatalf("failed to create server: %v", err)
     }
-		log.Info("Created server")
+		log.Info("Server started at port", cfg.Address)
 
     // run server in goroutine
     go func() {
