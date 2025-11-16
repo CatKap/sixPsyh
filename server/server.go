@@ -19,7 +19,7 @@ type Server struct {
     httpServer *http.Server
     db         *sql.DB
     loger     *loger.Loger
-		router 		*Router
+		router 		*router.Router
 }
 
 func New(cfg *config.Config, log *loger.Loger) (*Server, error) {
@@ -34,8 +34,8 @@ func New(cfg *config.Config, log *loger.Loger) (*Server, error) {
     //}
 
     h := handlers.NewHandler(db, log)
-			
-		router.GET("/health/", h.Health)	
+		r := router.New()
+		r.GET("/health/", h.Health)	
     //mux := http.NewServeMux()
     //mux.HandleFunc("/health", h.Health)
     //mux.HandleFunc("/users", h.Users) // example route
@@ -43,7 +43,7 @@ func New(cfg *config.Config, log *loger.Loger) (*Server, error) {
 
     srv := &http.Server{
         Addr:         cfg.Address,
-        Handler:      logingMiddleware(router.ServeHTTP, log),
+        Handler:      logingMiddleware(r, log),
         ReadTimeout:  10 * time.Second,
         WriteTimeout: 10 * time.Second,
         IdleTimeout:  120 * time.Second,
@@ -54,7 +54,7 @@ func New(cfg *config.Config, log *loger.Loger) (*Server, error) {
         httpServer: srv,
         db:         db,
         loger:     log,
-				router: router.New(),
+				router: r,
     }, nil
 }
 
@@ -71,7 +71,7 @@ func (s *Server) Shutdown(ctx context.Context) error {
     return s.db.Close()
 }
 
-func logingMiddleware(next http.Handler, log *loger.Loger) http.Handler {
+func logingMiddleware(next *router.Router, log *loger.Loger) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         start := time.Now()
         next.ServeHTTP(w, r)
