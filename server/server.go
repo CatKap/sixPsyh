@@ -10,6 +10,8 @@ import (
     "github.com/CatKap/sixPsyh/config"
     "github.com/CatKap/sixPsyh/handlers"
     "github.com/CatKap/sixPsyh/loger"
+    "github.com/CatKap/sixPsyh/router"
+
 		_ "github.com/mattn/go-sqlite3"
 )
 
@@ -17,6 +19,7 @@ type Server struct {
     httpServer *http.Server
     db         *sql.DB
     loger     *loger.Loger
+		router 		*Router
 }
 
 func New(cfg *config.Config, log *loger.Loger) (*Server, error) {
@@ -31,24 +34,27 @@ func New(cfg *config.Config, log *loger.Loger) (*Server, error) {
     //}
 
     h := handlers.NewHandler(db, log)
-
-    mux := http.NewServeMux()
-    mux.HandleFunc("/health", h.Health)
+			
+		router.GET("/health/", h.Health)	
+    //mux := http.NewServeMux()
+    //mux.HandleFunc("/health", h.Health)
     //mux.HandleFunc("/users", h.Users) // example route
-    mux.HandleFunc("/", h.Index)
+    //mux.HandleFunc("/", h.Index)
 
     srv := &http.Server{
         Addr:         cfg.Address,
-        Handler:      logingMiddleware(mux, log),
+        Handler:      logingMiddleware(router.ServeHTTP, log),
         ReadTimeout:  10 * time.Second,
         WriteTimeout: 10 * time.Second,
         IdleTimeout:  120 * time.Second,
+
     }
 
     return &Server{
         httpServer: srv,
         db:         db,
         loger:     log,
+				router: router.New(),
     }, nil
 }
 
