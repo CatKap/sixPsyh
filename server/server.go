@@ -36,6 +36,17 @@ func New(cfg *config.Config, log *loger.Loger) (*Server, error) {
     h := handlers.NewHandler(db, log)
 		r := router.New()
 		r.GET("/health/", h.Health)	
+
+		r.GET("/events/", h.GetEvents)
+
+		r.POST("/events/new/", h.AddEvent)
+
+		r.GET("/cathegorys/", h.Cathegorys)
+
+		r.POST("/cathegorys/new/", h.NewCathegory)
+		
+		r.DELETE("/entity/", h.Delete)
+
     //mux := http.NewServeMux()
     //mux.HandleFunc("/health", h.Health)
     //mux.HandleFunc("/users", h.Users) // example route

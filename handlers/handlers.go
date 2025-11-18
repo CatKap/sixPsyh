@@ -13,6 +13,10 @@ type Handler struct {
     log  *loger.Loger
 }
 
+type Error struct {
+	message string `json:"error"`
+}
+
 func NewHandler(db *sql.DB, log *loger.Loger) *Handler {
     return &Handler{db: db, log: log}
 }
