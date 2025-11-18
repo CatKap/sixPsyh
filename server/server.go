@@ -28,10 +28,10 @@ func New(cfg *config.Config, log *loger.Loger) (*Server, error) {
         return nil, err
     }
 
-    // simple ping to ensure connectivity
-    //if err := db.Ping(); err != nil {
-    //    return nil, err
-    //}
+    //simple ping to ensure connectivity
+    if err := db.Ping(); err != nil {
+        return nil, err
+    }
 
     h := handlers.NewHandler(db, log)
 		r := router.New()
