@@ -6,7 +6,7 @@ import (
     "os"
     "os/signal"
     "time"
-		"fmt"
+	"fmt"
 		
     "github.com/CatKap/sixPsyh/config"
     "github.com/CatKap/sixPsyh/server"
